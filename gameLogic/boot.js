@@ -14,8 +14,7 @@ var Invaders = {
   youWin13: false,
   isMobile: false
 };
-
-Invaders.Boot = function(game) {};
+Invaders.Boot = function() {};
 Invaders.Boot.prototype = {
   init: function() {
     this.input.maxPointers = 1;

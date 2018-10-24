@@ -1,11 +1,11 @@
-Invaders.Preloader = function(game) {
+Invaders.Preloader = function() {
   this.backgroundMenu = null;
   this.loadingMarco = null;
 };
 Invaders.Preloader.prototype = {
   init: function() {},
   preload: function() {
-    this.stage.backgroundColor = "#B4D9E7";
+    this.backgroundMenu = this.add.image(0,0,'backgroundMenu');
     this.preloadBar = this.add.sprite(
       this.world.centerX - 200,
       this.world.centerY,
@@ -107,6 +107,6 @@ Invaders.Preloader.prototype = {
   },
   create: function() {
     this.preloadBar.cropEnabled = false;
-    this.state.start("MechanicOne");
+    this.state.start("Play");
   }
 };
