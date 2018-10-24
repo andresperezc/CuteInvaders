@@ -2982,7 +2982,6 @@ Invaders.MechanicOne.prototype = {
     this.triggerNote = null;
     this.game.time.reset();
   },
-  render: function() {}
 };
 
 Invaders.items = {
