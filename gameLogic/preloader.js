@@ -60,6 +60,8 @@ Invaders.Preloader.prototype = {
     this.load.audio("youWin", "assets/youWinSong.mp3");
 
     //Buttons
+    this.load.image('logo', 'assets/logo.png');
+    this.load.image('invadersLogo', 'assets/invadersLogo.png');
     this.load.spritesheet("buttonOne", "assets/buttonOne.png", 70, 70);
     this.load.spritesheet("buttonTwo", "assets/buttonTwo.png", 70, 70);
     this.load.spritesheet("buttonThree", "assets/buttonThree.png", 70, 70);
