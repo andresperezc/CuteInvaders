@@ -1,14 +1,20 @@
-Invaders.Preloader = function(game) {};
+Invaders.Preloader = function(game) {
+  this.backgroundMenu = null;
+  this.loadingMarco = null;
+};
 Invaders.Preloader.prototype = {
   init: function() {},
   preload: function() {
     this.stage.backgroundColor = "#B4D9E7";
     this.preloadBar = this.add.sprite(
-      this.world.centerX - 100,
+      this.world.centerX - 200,
       this.world.centerY,
       "loadBar"
     );
     this.load.setPreloadSprite(this.preloadBar);
+    this.loadingMarco = this.add.image(this.world.centerX - 200,
+      this.world.centerY,
+      'loadingMarco');
     this.load.spritesheet("buttonPlay", "assets/ButtonPlay.png", 176, 178);
 
     // Game Assets

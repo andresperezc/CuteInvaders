@@ -33,6 +33,8 @@ Invaders.Boot.prototype = {
   },
   preload: function() {
     this.load.image("loadBar", "assets/loadBar.png");
+    this.load.image('backgroundMenu', 'assets/backgroundMenu.png');
+    this.load.image('loadingMarco', 'assets/loadingMarco.png');
   },
   create: function() {
     this.state.start("Preloader");
