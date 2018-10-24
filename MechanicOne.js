@@ -32,14 +32,13 @@ Invaders.MechanicOne = function() {
   this.pianoFast = null;
   this.triggerNote = null;
   this.modal = null;
-  this.gameOverWooble = null;
   this.flama = null;
   this.invaderShootS = null;
   this.bulletHitOneS = null;
   this.firingTimer = 0;
 
   //GameOver
-  this.gameOverModal = null;
+  this.gameOverWooble = null;
   this.youWinWooble = null;
   this.buttonReplay = null;
   this.buttonNextChapter = null;
@@ -98,25 +97,21 @@ Invaders.MechanicOne.prototype = {
       "backgroundThree"
     );
     this.backgroundThree.autoScroll(0, 50);
-
-    //*** Agregamos el make a nuestro UFO en create para que la función de ufo.fireatsprite funcione.
     this.ufo = this.make.sprite(-100, 50, "ufoRubi");
     this.ufo.anchor.setTo(0.5, 0.5);
 
-    //***INVADER BULLET
     this.invaderBullet = this.add.weapon(50, "bulletInvader");
     this.invaderBullet.addBulletAnimation("bulletA", [0, 1, 2, 3], 10, true);
     this.invaderBullet.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
     this.invaderBullet.bulletSpeed = 350;
     this.invaderBullet.bulletAngleOffset = 270;
 
-    //***INVADER BULLET DOS
     this.invaderBulletDos = this.add.weapon(50, "bullet");
     this.invaderBulletDos.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
     this.invaderBulletDos.bulletSpeed = 900;
     this.invaderBulletDos.fireRate = 200;
 
-    //***INVADERS
+    // Invaders
     this.invadersGroup = this.add.group();
     this.invadersGroup.enableBody = true;
     this.invadersGroup.physicsBodyType = Phaser.Physics.ARCADE;
@@ -125,7 +120,6 @@ Invaders.MechanicOne.prototype = {
     this.nextLine();
 
     // WEAPONS
-    //***Bullet Red
     this.bulletRed = this.add.weapon(30, "bulletHero");
     this.bulletRed.addBulletAnimation("bulletA", [0, 1, 2], 10, true);
     this.bulletRed.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
@@ -134,25 +128,19 @@ Invaders.MechanicOne.prototype = {
     this.bulletRed.bulletAngleVariance = 1;
     this.bulletRed.bulletAngleOffset = 90;
 
-    //*** EXPLOSION POOL 1
+    // Explosion PooL 1
     this.explosionInvader = this.add.group();
     this.explosionInvader.createMultiple(70, "explodeInvaders");
     this.explosionInvader.forEach(Invaders.items.explosionAnimation, this);
 
-    //***HALO
     this.halo = this.add.group();
     this.halo.createMultiple(70, "halo");
     this.halo.forEach(Invaders.items.haloAnimation, this);
 
-    // Agregamos la imagen como sprite
     this.spaceship = this.add.sprite(this.world.centerX, 580, "hero");
     this.spaceship.anchor.setTo(0.5, 0.5);
     this.physics.enable(this.spaceship, Phaser.Physics.ARCADE);
-
-    //Collision size
     this.spaceship.body.collideWorldBounds = true;
-
-    //***ADD CHILD ANIMATION SPRITE
 
     this.flama = this.make.sprite(-19, 20, "flamaRubi");
     this.flama.animations.add("idle", [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
@@ -243,7 +231,6 @@ Invaders.MechanicOne.prototype = {
     this.campoBlancoNoPhysics12 = this.add.group();
     this.bitMapDataShieldNoPhysics12();
 
-    //***HALO TWO
     this.haloTwo = this.add.group();
     this.haloTwo.createMultiple(70, "haloTwo");
     this.haloTwo.forEach(Invaders.items.haloAnimationTwo, this);
@@ -260,7 +247,7 @@ Invaders.MechanicOne.prototype = {
       ship.alpha = 0.7;
     }
 
-    //MODAL
+    // Modal
     this.modal = this.make.image(503, -302, "modal");
     this.modal.anchor.setTo(0.5, 0.5);
     this.buttonReplay = this.make.button(
@@ -302,10 +289,7 @@ Invaders.MechanicOne.prototype = {
     //YouWin
     this.youWinWooble = this.make.image(500, -161, "youWin");
     this.youWinWooble.anchor.setTo(0.5, 0.5);
-
     this.youWinS = this.add.audio("youWin");
-
-    //buttonMenuS
     this.buttonMenuS = this.add.button(
       20,
       23,
@@ -326,7 +310,7 @@ Invaders.MechanicOne.prototype = {
       Phaser.Keyboard.DOWN
     ]);
 
-    // AUDIO
+    // Audio
     this.laserS = this.add.audio("laser");
     this.laserS.volume = 0.07;
     this.bulletRed.onFire.add(function() {
@@ -376,16 +360,15 @@ Invaders.MechanicOne.prototype = {
     this.triggerNote = this.add.audio("nota1");
     this.triggerNote.volume = 0;
     this.triggerNote.allowMultiple = true;
-
     this.triggerNote.onPlay.add(function() {
       this.pianoFast.play("", 0, 0.6, true);
     }, this);
 
-    //*** UFO NORMAL
+    // Ufo
     this.time.events.repeat(5000, 1, this.ufoNormal, this);
     this.time.events.repeat(25000, 2, this.ufoNormal, this);
 
-    //SCORE
+    // Score
     const style = {
       font: "normal 34px KOMIKAX",
       fill: "#df2342",
@@ -399,7 +382,6 @@ Invaders.MechanicOne.prototype = {
       style
     );
   },
-
   createInvaders: function() {
     var invader;
 
@@ -434,11 +416,9 @@ Invaders.MechanicOne.prototype = {
     this.invadersGroup.x = 400;
     this.invadersGroup.y = 100;
   },
-
   nextLine: function() {
     this.time.events.repeat(this.acceleration, 1, this.nextAcceleration, this);
   },
-
   nextAcceleration: function() {
     if (this.counter == 10) {
       this.acceleration -= 100;
@@ -476,13 +456,11 @@ Invaders.MechanicOne.prototype = {
       this.tweenInvaders();
     }
   },
-
   tweenInvaders: function() {
     if (this.invadersGroup.countLiving() > 0) {
       this.counter++;
     }
 
-    // Ponemos de 0 al 50 porque son 50 Invaders los que queremos animar
     for (var i = 0; i < 60; i++) {
       this.invadersGroup.children[i].frame = this.frame;
     }
@@ -1332,7 +1310,6 @@ Invaders.MechanicOne.prototype = {
       }, this);
     }
   },
-
   enemyFires: function() {
     this.invaderBullet.onFire.add(function() {
       this.invaderShootS.play();
@@ -1367,7 +1344,6 @@ Invaders.MechanicOne.prototype = {
     // Esto significa que vamos a disparar cada 1000 ms o cada segundo
     this.firingTimer = this.time.now + item;
   },
-
   enemyHitsPlayer: function(player, bullet) {
     if (this.invadersGroup.countLiving() > 0) {
       bullet.kill();
@@ -1395,7 +1371,6 @@ Invaders.MechanicOne.prototype = {
       }
     }
   },
-
   playerHitsInvaders: function(enemy, bullet) {
     bullet.kill();
     enemy.damage(1);
@@ -1417,7 +1392,6 @@ Invaders.MechanicOne.prototype = {
       this.youWin();
     }
   },
-
   playerHitsUfo: function(enemy, bullet) {
     bullet.kill();
     enemy.damage(1);
@@ -1475,7 +1449,6 @@ Invaders.MechanicOne.prototype = {
     haloAnimPrivate.reset(bulletTwo.body.x - 20, bulletTwo.body.y + 10);
     haloAnimPrivate.play("haloTwo", 30, false, true);
   },
-
   playerDies: function() {
     let invader;
 
@@ -1490,7 +1463,6 @@ Invaders.MechanicOne.prototype = {
     this.gameOverTwoS.play();
     this.gameOverLogic();
   },
-
   invadersReachGround: function() {
     var invader;
 
@@ -1505,7 +1477,6 @@ Invaders.MechanicOne.prototype = {
     this.gameOverTwoS.play();
     this.gameOverLogic();
   },
-
   gameOverLogic: function() {
     this.world.add(this.modal);
     this.world.add(this.gameOverWooble);
@@ -1703,7 +1674,6 @@ Invaders.MechanicOne.prototype = {
     this.pianoFast.stop();
     this.youWinS.play();
   },
-
   replayGame: function() {
     this.clickS.play();
     this.state.restart(true, false);
@@ -1871,7 +1841,6 @@ Invaders.MechanicOne.prototype = {
     haloAnimPrivate.reset(bullet.body.x - 20, bullet.body.y + 40);
     haloAnimPrivate.play("haloTwo", 30, false, true);
   },
-
   overlapCollision3: function() {
     var pixeles = [];
     for (var i = 0; i < 96; i++) {
@@ -2100,7 +2069,6 @@ Invaders.MechanicOne.prototype = {
     haloAnimPrivate.reset(bullet.body.x - 20, bullet.body.y + 40);
     haloAnimPrivate.play("haloTwo", 30, false, true);
   },
-
   overlapCollision6: function() {
     var pixeles = [];
     for (var i = 0; i < 96; i++) {
@@ -2330,7 +2298,6 @@ Invaders.MechanicOne.prototype = {
     haloAnimPrivate.reset(bullet.body.x - 20, bullet.body.y + 40);
     haloAnimPrivate.play("haloTwo", 30, false, true);
   },
-
   overlapCollision9: function() {
     var pixeles = [];
     for (var i = 0; i < 96; i++) {
@@ -2558,7 +2525,6 @@ Invaders.MechanicOne.prototype = {
     haloAnimPrivate.reset(bullet.body.x - 20, bullet.body.y + 40);
     haloAnimPrivate.play("haloTwo", 30, false, true);
   },
-
   overlapCollision12: function() {
     var pixeles = [];
     for (var i = 0; i < 96; i++) {
@@ -2995,7 +2961,6 @@ Invaders.MechanicOne.prototype = {
       }
     }
   },
-
   shutdown: function() {
     this.ufoS.stop();
     this.youWinS.stop();
@@ -3017,11 +2982,7 @@ Invaders.MechanicOne.prototype = {
     this.triggerNote = null;
     this.game.time.reset();
   },
-
-  render: function() {
-    this.game.debug.text("Counter: " + this.counter, 20, 80);
-    this.game.debug.text("Time: " + this.time.now, 20, 100);
-  }
+  render: function() {}
 };
 
 Invaders.items = {
